@@ -20,9 +20,14 @@ main {
     height: 48px;
     padding: 8px;
     border: none;
+    outline: 2px solid #00000000;
     text-align: center;
     color: #aab9ce;
     font-size: 28px;
+}
+
+.main-input::placeholder {
+    color: #ffffff12;
 }
 
 .button-retry {
