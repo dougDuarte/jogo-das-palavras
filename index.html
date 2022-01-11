@@ -11,15 +11,17 @@
 
 <body>
     <main>
+        
         <div class="main-container">
-            <input class="main-input" data-letter1 type="text" maxlength="1">
-            <input class="main-input" data-letter2 type="text" maxlength="1">
-            <input class="main-input" data-letter3 type="text" maxlength="1">
-            <input class="main-input" data-letter4 type="text" maxlength="1">
-            <input class="main-input" data-letter5 type="text" maxlength="1">
+            <input class="main-input" data-letter1 type="text" maxlength="1" onkeypress="return checkInput(event)">
+            <input class="main-input" data-letter2 type="text" maxlength="1" onkeypress="return checkInput(event)">
+            <input class="main-input" data-letter3 type="text" maxlength="1" onkeypress="return checkInput(event)">
+            <input class="main-input" data-letter4 type="text" maxlength="1" onkeypress="return checkInput(event)">
+            <input class="main-input" data-letter5 type="text" maxlength="1" onkeypress="return checkInput(event)">
         </div>
-
+        
         <span class="button-retry" data-retry>Recomeçar</span>
+        
     </main>
     
     <script src="script.js"></script>
