@@ -1,43 +1,89 @@
-const letterInputs = document.querySelectorAll('input.main-input')
-const buttonRetry = document.querySelector('data-retry')
+const SQUARES = document.querySelectorAll('input.main-input')
 
-var words = ["Amora", "Tigre", "Arara", "Coral", "Jambo", "Pasto", "Zinco", "Ratão", "Carpo", "Mioma"]
-var randomPosition = Math.floor(Math.random() * words.length)
-var choosenWordSplit
+const WORDS = ["amora", "tigre", "arara", "coral", "jambo", "pasto", "zinco", "carpo", "mioma", "vinho"]
+const RANDOM_POSITION = Math.floor(Math.random() * WORDS.length)
+const CHOOSEN_WORD = WORDS[RANDOM_POSITION].toUpperCase()
 
-function associateLetter() {
-    choosenWordSplit = words[randomPosition].split('')
+// DECLARAÇÃO DOS OBJETOS
+let slot1 = {rightLetter: fillSlot(0), userLetter: '', status: 'empty'}
+let slot2 = {rightLetter: fillSlot(1), userLetter: '', status: 'empty'}
+let slot3 = {rightLetter: fillSlot(2), userLetter: '', status: 'empty'}
+let slot4 = {rightLetter: fillSlot(3), userLetter: '', status: 'empty'}
+let slot5 = {rightLetter: fillSlot(4), userLetter: '', status: 'empty'}
+const SLOTS = [slot1, slot2, slot3, slot4, slot5]
 
-    for(let i = 0; i < letterInputs.length; i++) {
-        letterInputs[i].placeholder = choosenWordSplit[i]
-        console.log(choosenWordSplit[i])
-    }
+// ASSOCIA O INDEX DA PALAVRA SORTEADA AO PLACEHOLDER DO QUADRADO (v2.0)
+function fillSlot(index) {
+    SQUARES[index].placeholder = CHOOSEN_WORD[index]
+    return CHOOSEN_WORD[index]
 }
 
-letterInputs.forEach((element, index) => {
+// TRIGGERS DO EVENTO DE INPUT (v2.0)
+SQUARES.forEach((element, index) => {
     element.addEventListener('input', () => {
-        if(element.value == choosenWordSplit[index]) {
-            element.style.outlineColor = 'green'
-        } else if(element.value == '') {
-            element.style.outlineColor = '#00000000'
-        } else {
-            element.style.outlineColor = 'red'
-        }
-
-        letterExists(element, index)
+        element.value = element.value.toUpperCase()
+        SLOTS[index].userLetter = element.value
+        testLetter()
+        showLog()
+        insertColor()
     })
 })
 
-function letterExists(element, index) {
-    for(let i = 0; i < choosenWordSplit.length; i++) {
-        if(element.value == choosenWordSplit[i] && index != i) {
-            element.style.outlineColor = 'orange'
-        } 
+// LÓGICA PRINCIPAL DOS ESTADOS
+function testLetter() {
+    for(let i = 0; i < SLOTS.length; i++) {
+
+        if(SLOTS[i].userLetter === '') {
+            SLOTS[i].status = 'empty'
+
+        } else if (SLOTS[i].userLetter === SLOTS[i].rightLetter) {
+            SLOTS[i].status = 'right'
+
+        } else {
+            let match = false
+
+            for(let a = 0; a < SLOTS.length; a++) {
+                if(SLOTS[a].rightLetter === SLOTS[i].userLetter && SLOTS[a].userLetter !== SLOTS[a].rightLetter && SLOTS[a] !== SLOTS[i]) {
+                    match = true
+                }
+                match ? SLOTS[i].status = 'wrongPlace' : SLOTS[i].status = 'wrong'
+            }
+        }
     }
 }
 
-associateLetter()
+// LÓGICA DAS CORES
+function insertColor() {
+    for(i in SLOTS) {
+        switch(SLOTS[i].status) {
+            case 'right':
+            SQUARES[i].style.outlineColor = 'green'
+            break
 
+            case 'wrongPlace':
+            SQUARES[i].style.outlineColor = 'orange'
+            break
+
+            case 'wrong':
+            SQUARES[i].style.outlineColor = 'red'
+            break
+
+            default:
+            SQUARES[i].style.outlineColor = '#00000000'
+        }
+    }
+}
+
+
+// DEBUG
+function showLog() {
+    console.clear()
+    for(i of SLOTS) {
+        console.log(i)
+    }
+}
+
+// FILTRA OS INPUTS PERMITIDOS NOS SQUARES
 function checkInput(evt) {
     var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
         ((evt.which) ? evt.which : 0));
