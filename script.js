@@ -1,6 +1,6 @@
 const SQUARES = document.querySelectorAll('input.main-input')
 
-const WORDS = ["amora", "tigre", "arara", "coral", "jambo", "pasto", "zinco", "carpo", "mioma", "vinho"]
+const WORDS = ["amora", "tigre", "arara", "coral", "jambo", "pasto", "zinco", "carpo", "mioma", "vinho", "banho"]
 const RANDOM_POSITION = Math.floor(Math.random() * WORDS.length)
 const CHOOSEN_WORD = WORDS[RANDOM_POSITION].toUpperCase()
 
@@ -84,11 +84,11 @@ function showLog() {
 }
 
 // FILTRA OS INPUTS PERMITIDOS NOS SQUARES
-function checkInput(evt) {
-    var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
-        ((evt.which) ? evt.which : 0));
-    if (charCode > 31 && (charCode < 65 || charCode > 90) &&
-        (charCode < 97 || charCode > 122)) {
-        return false;
-    }
-}
+SQUARES.forEach((element) => {
+    element.addEventListener('keypress', function(e){
+        let keyCode = (e.keyCode ? e.keyCode : e.which)
+        if ((keyCode >= 0 && keyCode <= 64) || (keyCode >= 91 && keyCode <= 93) || (keyCode >= 95 && keyCode <= 96) || (keyCode >= 123 && keyCode <= 127)) {
+            e.preventDefault()
+        }
+    })
+})
