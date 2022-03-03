@@ -1,25 +1,66 @@
-const WORDS = ["amor", "figo", "casa", "pote", "açaí", "cano", "sono", "capa", "mimo", "nilo", "área", "ação"]
+const WORDS = [
+    {word: 'amor',
+    tip: 'O grande segredo da humanidade.'},
+
+    {word: 'figo',
+    tip: 'Fruta.'},
+
+    {word: 'casa',
+    tip: 'Sonho de consumo da maioria das pessoas.'},
+
+    {word: 'pote',
+    tip: 'Usado para guardar coisas.'},
+
+    {word: 'cano',
+    tip: 'Essencial no projeto de qualquer residência.'},
+
+    {word: 'sono',
+    tip: 'Eu dormi pouco. Estou com: ?'},
+
+    {word: 'capa',
+    tip: 'Existem heróis sem ela.'},
+
+    {word: 'mimo',
+    tip: 'Presentinho fofinho.'},
+
+    {word: 'nilo',
+    tip: 'Uma dádiva do Egito.'},
+
+    {word: 'arte',
+    tip: 'Completamente subjetiva e difícil de definir.'}
+]
+
 const RANDOM_POSITION = Math.floor(Math.random() * WORDS.length)
-const CHOOSEN_WORD = WORDS[RANDOM_POSITION].toUpperCase()
+const CHOOSEN_WORD = WORDS[RANDOM_POSITION].word.toUpperCase()
+let attemptsAmount = 6
 
 
-// CRIAÇÃO DOS INPUTS ----->
+// CRIAÇÃO DO INPUT ----->
+function createInput() {
+    const INPUT_LETTER = document.createElement('input')
+    INPUT_LETTER.classList.add('input-letter')
+    INPUT_LETTER.setAttribute('type', 'text')
+    INPUT_LETTER.setAttribute('maxlength', '1')
+
+    return INPUT_LETTER
+}
+
+
+// DISTRIBUIÇÃO DOS INPUTS ----->
 const INPUTS = []
 
-function createInputs(count) {
+function initializeInputs(count) {
     const CONTAINER_INPUTS = document.querySelector('[data-container-inputs]')
+
     for(let i = 0; i < count; i++) {
-        const INPUT_LETTER = document.createElement('input')
-        INPUT_LETTER.classList.add('input-letter')
-        INPUT_LETTER.setAttribute('type', 'text')
-        INPUT_LETTER.setAttribute('maxlength', '1')
-        INPUT_LETTER.placeholder = CHOOSEN_WORD[i]
+        const INPUT_LETTER = createInput()
         CONTAINER_INPUTS.appendChild(INPUT_LETTER)
+        INPUT_LETTER.placeholder = CHOOSEN_WORD[i]
         INPUTS.push(INPUT_LETTER)
     }
 }
 
-createInputs(4)
+initializeInputs(4)
 
 
 // DECLARAÇÃO DOS OBJETOS ----->
@@ -40,15 +81,52 @@ INPUTS.forEach((element, index) => {
     element.addEventListener('input', () => {
         element.value = element.value.toUpperCase()
         SLOTS[index].userLetter = element.value
-        testLetter()
+        testLetter(INPUTS)
         showLog(SLOTS)
         insertColor()
     })
 })
 
 
+// LIMITE DE TENTATIVAS ----->
+function attempts(input) {
+    const ATTEMPTS = document.querySelector('[data-attempts]')
+    const TIP = document.querySelector('[data-tip]')
+    const TIP_TEXT = document.querySelector('[data-tip-text]')
+
+    if(attemptsAmount !== 0) {
+        attemptsAmount--
+        
+        if(attemptsAmount !== 1) {
+            ATTEMPTS.innerHTML = `<span>[ ${attemptsAmount} ]</span> tentativas restantes`
+
+        } else {
+            ATTEMPTS.innerHTML = `<span>[ ${attemptsAmount} ]</span> tentativa restante` 
+        }
+        
+    } else {
+        input.forEach(e => e.setAttribute('disabled', 'disabled'))
+    }
+    
+    if(attemptsAmount <= 2) {
+        ATTEMPTS.firstChild.classList.add('--warning')
+        TIP_TEXT.innerText = WORDS[RANDOM_POSITION].tip
+        TIP.classList.remove('--hidden')
+    }
+}
+
+// RESSETAR TELA ----->
+const RESET_BUTTON = document.querySelector('[data-retry]')
+
+function reset() {
+    location.reload()
+}
+
+RESET_BUTTON.addEventListener('click', reset)
+
+
 // LÓGICA DOS ESTADOS ----->
-function testLetter() {
+function testLetter(input) {
     for(let i = 0; i < SLOTS.length; i++) {
 
         if(SLOTS[i].userLetter === '') {
@@ -59,7 +137,8 @@ function testLetter() {
 
         } else {
             let match = false
-
+            attempts(input) 
+            
             for(let a = 0; a < SLOTS.length; a++) {
                 if(SLOTS[a].rightLetter === SLOTS[i].userLetter && SLOTS[a].userLetter !== SLOTS[a].rightLetter && SLOTS[a] !== SLOTS[i]) {
                     match = true
@@ -94,7 +173,7 @@ function insertColor() {
 }
 
 
-// FILTRA OS INPUTS PERMITIDOS NOS INPUTS
+// FILTRA OS INPUTS PERMITIDOS NOS INPUTS ----->
 INPUTS.forEach((element) => {
     element.addEventListener('keypress', function(e){
         let keyCode = (e.keyCode ? e.keyCode : e.which)

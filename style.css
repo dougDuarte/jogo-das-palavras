@@ -19,6 +19,7 @@ body {
     height: 100vh;
 }
 
+
 /* CABEÇALHO -----> */
 
 header {
@@ -64,6 +65,7 @@ header {
     border: 2px solid var(--color-wrong);
 }
 
+
 /* MEIOTA -----> */
 
 main {
@@ -108,8 +110,9 @@ main {
 }
 
 .input-letter::placeholder {
-    color: #ffffff00;
+    color: #ffffff10;
 }
+
 
 /* RODAPÉ -----> */
 
@@ -162,8 +165,9 @@ footer {
     bottom: 48px;
     color: #ffffff35;
     line-height: 1.3;
-    font-size: 15px;
+    font-size: 14px;
 }
+
 
 /* ESTADOS -----> */
 
@@ -185,6 +189,15 @@ footer {
     color: var(--color-wrong);
 }
 
+.--disabled {
+    border: none;
+    color: #00000030;
+}
+
 .--warning {
     color: var(--color-alert);
+}
+
+.--hidden {
+    visibility: hidden;
 }
