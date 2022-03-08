@@ -1,12 +1,8 @@
-/* CONFIG -----> */
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-
 :root {
     --color-main: #1C232C;
     --color-secondary: #0F141B;
     --color-header: #252b35;
-    --color-text: #BDC1C7;
+    --color-text: #d1d4da;
     --color-alert: #ffcc40;
     --color-right: #1f9e27;
     --color-misplaced: #e66f00;
@@ -14,8 +10,9 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
     background-color: var(--color-main);
+    display: flex;
+    flex-direction: column;
     height: 100vh;
 }
 
@@ -23,45 +20,75 @@ body {
 /* CABEÇALHO -----> */
 
 header {
-    position: absolute;
     background-color: var(--color-header);
     display: flex;
     justify-content: center;
-    width: 100%;
-    padding: 48px;
-    box-sizing: border-box;
+    padding: 32px;
+    color: var(--color-text);
+    font-size: 16px;
+    text-align: center;
 }
 
 .instructions {
-    display: flex;
-    column-gap: 32px;
+    background-color: var(--color-main);
+    padding: 20px;
+    transition: 0.3s background-color, 0.3s padding;
 }
 
-.instructions li {
+.instructions:hover {
+    background-color: var(--color-secondary);
+}
+
+.instructions[open] {
+    background-color: var(--color-secondary);
+    padding: 32px;
+}
+
+.instructions summary {
+    cursor: pointer;
+}
+
+.instructions_list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin-top: 32px;
+    line-height: 1.4;
+}
+
+.instructions_list span {
+    color: var(--color-alert);
+}
+
+.instructions_colors {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.instructions_colors li {
     display: flex;
     align-items: center;
     column-gap: 8px;
-    color: var(--color-text);
-    font-size: 16px;
 }
 
-.instructions li div {
-    min-width: 16px;
-    min-height: 16px;
+.instructions_colors div {
+    width: 16px;
+    height: 16px;
     border-radius: 6px;
-    box-sizing: border-box;
-    transform: translateY(-1px);
 }
 
-.instructions li:nth-child(1) div {
+.instructions_colors li:nth-child(1) div {
     border: 2px solid var(--color-right);
 }
 
-.instructions li:nth-child(2) div {
+.instructions_colors li:nth-child(2) div {
     border: 2px solid var(--color-misplaced);
 }
 
-.instructions li:nth-child(3) div {
+.instructions_colors li:nth-child(3) div {
     border: 2px solid var(--color-wrong);
 }
 
@@ -70,21 +97,25 @@ header {
 
 main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 32px;
     height: 100%;
-    padding: 0px 48px;
+    padding: 0px 32px;
 }
 
 .tip {
-    position: absolute;
-    top: calc(50% - 120px);
     display: flex;
     align-items: center;
     column-gap: 4px;
     fill: var(--color-alert);
     color: var(--color-alert);
-    font-size: 15px;
+    font-size: 16px;
+}
+
+.tip svg {
+    transform: translateY(1px);
 }
 
 .input-letter-container {
@@ -92,46 +123,49 @@ main {
     justify-content: center;
     column-gap: 8px;
     width: 100%;
-    z-index: 1;
 }
 
 .input-letter {
     background-color: var(--color-secondary);
-    width: 80px;
-    height: 80px;
-    outline: none;
-    border: none;
-    border-radius: 30%;
+    width: 96px;
+    height: 96px;
     color: var(--color-text);
     text-align: center;
     font-size: 36px;
-    box-sizing: border-box;
-    transition: 0.25s width, 0.25s height;
+    transition: 0.3s width, 0.3s height;
 }
 
 .input-letter::placeholder {
-    color: #ffffff10;
+    color: #ffffff07;
+}
+
+.result {
+    text-align: center;
+    line-height: 1.4;
+    font-size: 16px;
+}
+
+.result span {
+    font-size: 20px;
+    font-weight: 700;
 }
 
 
 /* RODAPÉ -----> */
 
 footer {
-    position: absolute;
-    bottom: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     row-gap: 20px;
     width: 100%;
-    padding: 48px;
-    box-sizing: border-box;
+    padding: 0px 32px 32px 32px;
 }
 
 .attempts {
     color: var(--color-text);
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .attempts span {
@@ -145,59 +179,73 @@ footer {
     justify-content: center;
     width: 56px;
     height: 56px;
-    border: none;
-    border-radius: 50%;
     cursor: pointer;
-    z-index: 2;
 }
 
 .button-retry svg {
     fill: var(--color-text);
 }
 
-.button-retry:hover svg {
-    fill: var(--color-alert);
-}
-
-.version {
-    position: absolute;
-    left: 48px;
-    bottom: 48px;
-    color: #ffffff35;
-    line-height: 1.3;
-    font-size: 14px;
-}
-
 
 /* ESTADOS -----> */
 
-.--right {
+.--hidden {
+    display: none;
+}
+
+.--letter-right {
     border: 2px solid var(--color-right);
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     color: var(--color-right);
     font-size: 28px;
 }
 
-.--misplaced {
+.--letter-misplaced {
     border: 2px solid var(--color-misplaced);
     color: var(--color-misplaced);
 }
 
-.--wrong {
+.--letter-wrong {
     border: 2px solid var(--color-wrong);
     color: var(--color-wrong);
 }
 
-.--disabled {
-    border: none;
-    color: #00000030;
+.--color-right {
+    color: var(--color-right);
 }
 
-.--warning {
+.--color-warning {
     color: var(--color-alert);
 }
 
-.--hidden {
-    visibility: hidden;
+.--color-wrong {
+    color: var(--color-wrong);
+}
+
+
+/* MEDIA QUERIES -----> */
+
+@media screen and (max-width: 1024px) {
+    .input-letter {
+        width: 80px;
+        height: 80px;
+    }
+
+    .--letter-right {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .input-letter {
+        width: 64px;
+        height: 64px;
+    }
+
+    .--letter-right {
+        width: 56px;
+        height: 56px;
+    }
 }
