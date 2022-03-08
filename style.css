@@ -32,6 +32,7 @@ header {
 .instructions {
     background-color: var(--color-main);
     padding: 20px;
+    border-radius: 20px;
     transition: 0.3s background-color, 0.3s padding;
 }
 
@@ -129,6 +130,7 @@ main {
     background-color: var(--color-secondary);
     width: 96px;
     height: 96px;
+    border-radius: 32px;
     color: var(--color-text);
     text-align: center;
     font-size: 36px;
@@ -179,6 +181,7 @@ footer {
     justify-content: center;
     width: 56px;
     height: 56px;
+    border-radius: 50%;
     cursor: pointer;
 }
 
@@ -200,8 +203,8 @@ footer {
 
 .--letter-right {
     border: 2px solid var(--color-right);
-    width: 72px;
-    height: 72px;
+    width: 80px;
+    height: 80px;
     color: var(--color-right);
     font-size: 28px;
 }
@@ -235,6 +238,7 @@ footer {
     .input-letter {
         width: 80px;
         height: 80px;
+        border-radius: 24px;
     }
 
     .--letter-right {
@@ -247,6 +251,7 @@ footer {
     .input-letter {
         width: 64px;
         height: 64px;
+        border-radius: 20px;
     }
 
     .--letter-right {
