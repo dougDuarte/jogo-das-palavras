@@ -6,13 +6,13 @@ export const WORDS = [
     tip: 'fruta com formato que lembra um figo.'},
 
     {word: 'casa',
-    tip: 'sonho de consumo da maioria das pessoas.'},
+    tip: 'sonho de consumo de muitas pessoas.'},
 
     {word: 'pote',
     tip: 'usado para guardar coisas.'},
 
     {word: 'cano',
-    tip: 'muito utilizado para transportar líquidos.'},
+    tip: 'muito utilizado para transportar água.'},
 
     {word: 'sono',
     tip: 'um bom café resolve esse problema.'},
@@ -27,12 +27,27 @@ export const WORDS = [
     tip: 'uma dádiva do Egito.'},
 
     {word: 'arte',
-    tip: 'é completamente subjetiva e difícil de definir.'}
+    tip: 'é muito subjetiva e difícil de definir.'},
+
+    {word: 'pele',
+    tip: 'órgão muito importante.'},
+
+    {word: 'bile',
+    tip: 'é produzida pelo fígado.'},
+
+    {word: 'medo',
+    tip: 'sentimento importante para autopreservação.'},
+
+    {word: 'fera',
+    tip: 'animal feroz.'},
+
+    {word: 'mole',
+    tip: 'demonstra falta de solidez.'}
 ]
 
 export const INPUTS = []
 export const SLOTS = []
-export const RANDOM_POSITION = Math.floor(Math.random() * WORDS.length)
+export const RANDOM_POSITION = Math.floor(Math.random() * (WORDS.length - 0 + 1) ) + 0;
 export const CHOSEN_WORD = WORDS[RANDOM_POSITION].word.toUpperCase()
 
 

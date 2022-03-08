@@ -2,7 +2,7 @@ import { INPUTS, SLOTS, initializeInputs, assignSlots } from './create_inputs.js
 import { inputsLogic } from './inputs_logic.js'
 import { keyFilter } from './inputs_filter.js'
 import { reset } from './reset.js'
-import { attemptsTextAndColor, attemptsLogic } from './attempts.js'
+import { attemptsTextAndColor, attemptsLogic, attemptsAmount } from './attempts.js'
 import { showTip } from './tip.js'
 import { gameOver } from './gameover.js'
 
