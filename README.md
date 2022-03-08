@@ -1,6 +1,6 @@
 # Jogo de Palavras
 
-Projeto pessoal, feito em parceria com a dev Milena Emmert, feito para colocar em prática vários conhecimentos adquiridos nas últimas semanas. Foi top demais!
+Projeto pessoal, produzido em parceria com a dev Milena Emmert, feito para colocar em prática vários conhecimentos adquiridos nas últimas semanas. Foi top demais!
 
 ## 🚀 Objetivo
 
